@@ -126,8 +126,8 @@ RewriteEngine On
         </Proxy>
 
         # Local openvpn-status monitor access with '/openvpn-status/', at 127.0.0.1:3013
-        ProxyPass "/openvpn-status/" "http://192.168.1.12:3013/" connectiontime$
-        ProxyPassReverse "/openvpn-status/" "http://192.168.1.12:3013/"
+        ProxyPass "/openvpn-status/" "http://127.0.0.1:3013/" connectiontime$
+        ProxyPassReverse "/openvpn-status/" "http://127.0.0.1:3013/"
 
         # if the user did not give the trailing /, add it
         # for HTTP (if the virtualhost is HTTP, use this)
