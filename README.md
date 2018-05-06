@@ -111,6 +111,34 @@ server {
   }
 }
 ```
+## (optional) Running the service behind apache as a reverse proxy
+
+In order to integrate the service into your webserver you might want to use apache as a reverse proxy. The following configuration assumes that the port is set to *3013* as it is by default. The example also contains basic HTTP authentication to protect the service from unauthorised access.
+
+<VirtualHost *:80>
+
+	RewriteEngine On
+	ProxyRequests Off
+	ProxyPreserveHost On
+
+	<Proxy *>
+		Require all granted
+	</Proxy>
+
+	# Local netdata server accessed with '/openvpn-status/', at 127.0.0.1:3013
+	ProxyPass "/netdata/" "http://127.0.0.1:3013/" connectiontimeout=5 timeout=30 keepalive=on
+	ProxyPassReverse "/netdata/" "http://127.0.0.1:3013/"
+
+	# if the user did not give the trailing /, add it
+	# for HTTP (if the virtualhost is HTTP, use this)
+	RewriteRule ^/openvpn-status$ http://%{HTTP_HOST}/openvpn-status/ [L,R=301]
+	# for HTTPS (if the virtualhost is HTTPS, use this)
+	#RewriteRule ^/openvpn-status$ https://%{HTTP_HOST}/openvpn-status/ [L,R=301]
+
+	# rest of virtual host config here
+	
+</VirtualHost>
+
 
 # Special Thanks To
 
