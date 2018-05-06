@@ -126,8 +126,8 @@ In order to integrate the service into your webserver you might want to use apac
 	</Proxy>
 
 	# Local netdata server accessed with '/openvpn-status/', at 127.0.0.1:3013
-	ProxyPass "/netdata/" "http://127.0.0.1:3013/" connectiontimeout=5 timeout=30 keepalive=on
-	ProxyPassReverse "/netdata/" "http://127.0.0.1:3013/"
+	ProxyPass "/openvpn-status/" "http://127.0.0.1:3013/" connectiontimeout=5 timeout=30 keepalive=on
+	ProxyPassReverse "/openvpn-status/" "http://127.0.0.1:3013/"
 
 	# if the user did not give the trailing /, add it
 	# for HTTP (if the virtualhost is HTTP, use this)
